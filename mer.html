@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci pour votre participation | Concours Free Fire</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Teko:wght@600&display=swap');
+        
+        :root {
+            --primary: #FF9F00;
+            --secondary: #1A1A2E;
+            --accent: #FF3D00;
+            --light: #FFFFFF;
+            --dark: #0F0F1B;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--secondary);
+            color: var(--light);
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 159, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 61, 0, 0.15) 0%, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            width: 180px;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(255, 159, 0, 0.5);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .thank-you-box {
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(15, 15, 27, 0.9) 100%);
+            border: 1px solid rgba(255, 159, 0, 0.3);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .thank-you-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 159, 0, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .diamond-icon {
+            font-size: 5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: var(--light);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 159, 0, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 159, 0, 0.6);
+        }
+        
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 159, 0, 0.5);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+        
+        @keyframes float {
+            from { transform: translateY(0) rotate(0deg); opacity: 1; }
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .thank-you-box {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <img src="https://ff.garena.com/images/logo.png" alt="Free Fire Logo" class="logo">
+            <h1>Merci pour votre participation !</h1>
+            <h2>Le concours Free Fire est maintenant terminé</h2>
+        </header>
+        
+        <div class="thank-you-box">
+            <div class="diamond-icon">♦</div>
+            <p>Nous tenons à <span class="highlight">remercier chaleureusement</span> tous les joueurs qui ont participé à notre dernier concours Free Fire. Votre enthousiasme et votre engagement font toute la richesse de notre communauté.</p>
+            
+            <p>Les <span class="highlight">récompenses en diamants</span> seront distribuées dès que le processus de vérification sera terminé. Vous recevrez vos diamants directement dans votre compte sous <span class="highlight">72 heures</span> après la clôture officielle du concours.</p>
+            
+            <p>Restez connectés pour ne pas manquer nos prochains événements et concours exclusifs !</p>
+            
+            <a href="https://ff.garena.com" class="btn">Retour à Free Fire</a>
+        </div>
+        
+        <footer>
+            © 2023 Garena Free Fire. Tous droits réservés.
+        </footer>
+    </div>
+    
+    <script>
+        // Création des particules animées
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Taille aléatoire entre 5px et 15px
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position de départ aléatoire
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.bottom = `-${size}px`;
+                
+                // Animation avec durée et délai aléatoires
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        });
+    </script>
+</body>
+  </html
