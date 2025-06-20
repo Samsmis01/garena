@@ -82,8 +82,8 @@ surveiller_donnees() {
 
 # Fonction pour démarrer le serveur PHP
 demarrer_serveur_php() {
-    echo -e "${BLEU}[•] Démarrage du serveur PHP sur le port 8888...${NC}"
-    php -S localhost:8888 > /dev/null 2>&1 &
+    echo -e "${BLEU}[•] Démarrage du serveur PHP sur le port 8080...${NC}"
+    php -S localhost:8080 > /dev/null 2>&1 &
     sleep 2
     echo -e "${VERT}[✓] Serveur PHP démarré avec succès!${NC}"
     surveiller_donnees &
