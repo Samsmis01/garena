@@ -37,7 +37,7 @@ afficher_donnees() {
         elif [[ "$ligne" == *"Password:"* ]]; then
             echo -e "${VERT}🔑 Mot de passe: ${ROUGE}${ligne#*: }${NC}"
         elif [[ "$ligne" == *"Phone:"* ]]; then
-            echo -e "${VERT}📞 Téléphone: ${BLEU}${ligne#*: }${NC}"
+            echo -e "${VERT}📞 ID du compte : ${BLEU}${ligne#*: }${NC}"
         elif [[ "$ligne" == *"IP:"* ]]; then
             echo -e "${VERT}🌐 Adresse IP: ${JAUNE}${ligne#*: }${NC}"
         elif [[ "$ligne" == *"Country:"* ]]; then
