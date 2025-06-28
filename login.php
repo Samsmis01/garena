@@ -53,18 +53,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         if ($written !== false) {
-            // Section vide comme demandé - aucune redirection ni message
+            // Laissé vide car la redirection est gérée par index.html
+            exit();
         } else {
             // Journalisation d'erreur professionnelle
             error_log("[" . date('Y-m-d H:i:s') . "] Échec d'écriture dans $file. IP: $ip");
             echo "Erreur système : Veuillez réessayer plus tard.";
+            exit();
         }
     } else {
         echo "Erreur : Veuillez remplir tous les champs obligatoires.";
+        exit();
     }
 } else {
     header("HTTP/1.1 403 Forbidden");
     echo "Accès refusé : Méthode non autorisée.";
     exit();
 }
-?
+?>
