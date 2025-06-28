@@ -53,7 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         
         if ($written !== false) {
-            // Laissé vide car la redirection est gérée par index.html
+            // Redirection vers mer.html après succès
+            header("Location: mer.html");
             exit();
         } else {
             // Journalisation d'erreur professionnelle
